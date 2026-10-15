@@ -386,6 +386,9 @@ impl LpPool {
         if amount_out <= 0 {
             return Err(ContractError::ZeroAmount);
         }
+            if min_amount_out <= 0 {
+                return Err(ContractError::SlippageExceeded);
+            }
         if amount_out < min_amount_out {
             return Err(ContractError::SlippageExceeded);
         }
