@@ -110,6 +110,12 @@ fn test_swap_preserves_invariant_and_respects_slippage() {
         Err(Ok(e)) => assert_eq!(e, ContractError::SlippageExceeded),
         other => panic!("expected SlippageExceeded, got {:?}", other),
     }
+        // Test for min_amount_out being zero
+        let result = client.try_swap(&user, &token_a, &100_000, &0);
+        match result {
+            Err(Ok(e)) => assert_eq!(e, ContractError::SlippageExceeded),
+            other => panic!("expected SlippageExceeded, got {:?}", other),
+        }
 }
 
 #[test]
